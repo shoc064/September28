@@ -9,30 +9,26 @@ interface ContactModalProps {
 
 export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [organization, setOrganization] = useState('');
-  const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [formState, setFormState] = useState({
+    name: '',
+    organization: '',
+    email: '',
+    inquiryType: 'Director / Lead PMM Opportunity',
+    message: '',
+  });
 
   if (!isOpen) return null;
 
   const handleCopyEmail = () => {
-    navigator.clipboard?.writeText(PORTFOLIO_DATA.contact.email);
+    navigator.clipboard.writeText(PORTFOLIO_DATA.profile.email);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    const subject = encodeURIComponent(
-      `Product Marketing Leadership Inquiry — ${organization || name || 'Strategic Briefing'}`
-    );
-    const body = encodeURIComponent(
-      `Hi Tanmay,\n\n${message}\n\nBest regards,\n${name}\n${organization ? `${organization}\n` : ''}${email}`
-    );
-    window.location.href = `mailto:${PORTFOLIO_DATA.contact.email}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -41,165 +37,223 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg bg-[#11141C] border border-white/15 rounded-xl overflow-hidden shadow-2xl my-auto"
+        className="w-full max-w-xl bg-[#10131b] border border-[#23293a] rounded-xl p-6 sm:p-8 my-auto shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between bg-[#141822]">
+        <div className="flex items-start justify-between gap-4 pb-5 mb-6 border-b border-[#1c2230]">
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-[#60A5FA]">
-              NEXT OPPORTUNITY · STRATEGIC BRIEFING
+            <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#60a5fa] mb-1">
+              STRATEGIC BRIEFING &amp; EXECUTIVE INQUIRIES
             </div>
-            <h2 className="text-lg font-bold text-white mt-0.5">
-              Connect with Tanmay Choudhury
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
+              Connect with {PORTFOLIO_DATA.profile.name}
             </h2>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
-            aria-label="Close modal"
+            className="p-2 rounded bg-[#161a26] hover:bg-[#1e2436] text-[#94a3b8] hover:text-white cursor-pointer"
+            aria-label="Close contact modal"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Open to <strong className="text-white">Product Marketing Lead</strong> and{' '}
-            <strong className="text-white">Director of Product Marketing</strong> roles, as well as strategic GTM advisory engagements across Data, AI Infrastructure, and Cybersecurity.
-          </p>
-
-          {/* Direct Email & LinkedIn Quick Bar */}
-          <div className="p-3.5 rounded-lg bg-[#0D1017] border border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5 text-xs font-mono text-white">
-              <Mail className="w-4 h-4 text-[#3B82F6] shrink-0" />
-              <span>{PORTFOLIO_DATA.contact.email}</span>
+        {/* Direct Contact Channels */}
+        <div className="bg-[#141822] border border-[#1f2536] rounded-lg p-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded bg-[#10192e] border border-[#1e3463] flex items-center justify-center text-[#60a5fa]">
+              <Mail className="w-4 h-4" />
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handleCopyEmail}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-white/[0.06] hover:bg-white/10 text-[11px] font-mono text-slate-200 transition-colors cursor-pointer"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    Copied
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    Copy Email
-                  </>
-                )}
-              </button>
-              <a
-                href={PORTFOLIO_DATA.contact.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-[#155EEF]/20 hover:bg-[#155EEF]/30 border border-[#155EEF]/40 text-[11px] font-mono text-[#60A5FA] transition-colors"
-              >
-                LinkedIn
-                <ExternalLink className="w-3 h-3" />
-              </a>
+            <div>
+              <div className="text-[10px] font-mono uppercase tracking-wider text-[#64748b]">
+                DIRECT EMAIL
+              </div>
+              <div className="text-xs sm:text-sm font-mono font-semibold text-white">
+                {PORTFOLIO_DATA.profile.email}
+              </div>
             </div>
           </div>
 
-          {submitted ? (
-            <div className="p-5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3">
-              <div className="text-sm font-bold text-white">
-                Briefing Request Prepared
-              </div>
-              <p className="text-xs text-slate-300">
-                Your email client has been opened with your message addressed to{' '}
-                <span className="font-mono text-white">{PORTFOLIO_DATA.contact.email}</span>.
-              </p>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#181d2a] hover:bg-[#202637] border border-[#283044] text-[10.5px] font-mono text-[#cbd5e1] hover:text-white transition-colors cursor-pointer"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-[#10b981]" />
+                  <span className="text-[#10b981]">COPIED</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-[#60a5fa]" />
+                  <span>COPY EMAIL</span>
+                </>
+              )}
+            </button>
+
+            <a
+              href={PORTFOLIO_DATA.profile.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#181d2a] hover:bg-[#202637] border border-[#283044] text-[10.5px] font-mono text-[#cbd5e1] hover:text-white transition-colors"
+            >
+              <span>LINKEDIN</span>
+              <ExternalLink className="w-3 h-3 text-[#60a5fa]" />
+            </a>
+          </div>
+        </div>
+
+        {submitted ? (
+          <div className="bg-[#121927] border border-[#1e3a7a] rounded-lg p-6 text-center">
+            <div className="w-10 h-10 rounded-full bg-[#10b981]/15 border border-[#10b981]/40 text-[#10b981] flex items-center justify-center mx-auto mb-3">
+              <Check className="w-5 h-5" />
+            </div>
+            <h3 className="text-base font-bold text-white mb-1.5">
+              Briefing Request Prepared
+            </h3>
+            <p className="text-xs text-[#94a3b8] leading-relaxed mb-5">
+              Thank you, {formState.name || 'for reaching out'}. Your message details are
+              ready—click below to send directly via your email client or reach out at{' '}
+              <span className="text-white font-mono">
+                {PORTFOLIO_DATA.profile.email}
+              </span>
+              .
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a
+                href={`mailto:${PORTFOLIO_DATA.profile.email}?subject=${encodeURIComponent(
+                  `[${formState.inquiryType}] ${formState.name} — ${formState.organization}`
+                )}&body=${encodeURIComponent(
+                  `${formState.message}\n\nFrom: ${formState.name} (${formState.email})`
+                )}`}
+                className="px-4 py-2 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-[11px] font-semibold uppercase tracking-wider text-white"
+              >
+                OPEN IN MAIL CLIENT
+              </a>
               <button
                 type="button"
-                onClick={() => setSubmitted(false)}
-                className="px-4 py-2 rounded bg-white/10 text-xs font-mono uppercase text-white cursor-pointer"
+                onClick={() => {
+                  setSubmitted(false);
+                  onClose();
+                }}
+                className="px-4 py-2 rounded bg-[#161a26] border border-[#252c3e] text-[11px] font-semibold uppercase tracking-wider text-[#cbd5e1] cursor-pointer"
               >
-                Send Another Message
+                CLOSE
               </button>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Alex Rivera"
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#0D1017] border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
-                    Work Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="alex@company.com"
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#0D1017] border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6]"
-                  />
-                </div>
-              </div>
-
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
-                  Company &amp; Role Scope
+                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
+                  YOUR NAME *
                 </label>
                 <input
                   type="text"
-                  value={organization}
-                  onChange={(e) => setOrganization(e.target.value)}
-                  placeholder="e.g. Director of Product Marketing — Series B AI Infrastructure"
-                  className="w-full px-3.5 py-2.5 rounded-lg bg-[#0D1017] border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
-                  Message / Briefing Context
-                </label>
-                <textarea
-                  rows={3}
                   required
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Share details on the role, product, or GTM challenge you'd like to discuss..."
-                  className="w-full px-3.5 py-2.5 rounded-lg bg-[#0D1017] border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#3B82F6]"
+                  value={formState.name}
+                  onChange={(e) =>
+                    setFormState((s) => ({ ...s, name: e.target.value }))
+                  }
+                  placeholder="Jane Doe"
+                  className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white placeholder-[#525c70]"
                 />
               </div>
-
-              <div className="flex items-center justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-4 py-2.5 rounded bg-white/5 hover:bg-white/10 text-xs font-mono uppercase tracking-wider text-slate-300 cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-[#155EEF] hover:bg-[#1D63FF] text-xs font-mono uppercase tracking-wider text-white font-medium transition-colors cursor-pointer"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  Send Briefing Request
-                </button>
+              <div>
+                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
+                  COMPANY / ORGANIZATION *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formState.organization}
+                  onChange={(e) =>
+                    setFormState((s) => ({ ...s, organization: e.target.value }))
+                  }
+                  placeholder="Enterprise Tech Co."
+                  className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white placeholder-[#525c70]"
+                />
               </div>
-            </form>
-          )}
-        </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
+                  WORK EMAIL *
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formState.email}
+                  onChange={(e) =>
+                    setFormState((s) => ({ ...s, email: e.target.value }))
+                  }
+                  placeholder="jane@company.com"
+                  className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white placeholder-[#525c70]"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
+                  ENGAGEMENT FOCUS
+                </label>
+                <select
+                  value={formState.inquiryType}
+                  onChange={(e) =>
+                    setFormState((s) => ({ ...s, inquiryType: e.target.value }))
+                  }
+                  className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white"
+                >
+                  <option value="Director / Lead PMM Opportunity">
+                    Director / Lead PMM Opportunity
+                  </option>
+                  <option value="Senior PMM Role">Senior PMM Role</option>
+                  <option value="Fractional / Advisory GTM">
+                    Fractional / Advisory GTM
+                  </option>
+                  <option value="Strategic Briefing">Strategic Briefing</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
+                CONTEXT / ROLE DETAILS *
+              </label>
+              <textarea
+                rows={3}
+                required
+                value={formState.message}
+                onChange={(e) =>
+                  setFormState((s) => ({ ...s, message: e.target.value }))
+                }
+                placeholder="Share details on the role, product domain (Data, AI Infrastructure, Cybersecurity), or GTM challenge..."
+                className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white placeholder-[#525c70] resize-none"
+              />
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2.5 rounded bg-[#151922] hover:bg-[#1c212d] border border-[#252b3b] text-[11px] font-semibold tracking-[0.1em] text-[#cbd5e1] uppercase cursor-pointer"
+              >
+                CANCEL
+              </button>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-[11px] font-semibold tracking-[0.1em] text-white uppercase cursor-pointer"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>SEND BRIEFING REQUEST</span>
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
