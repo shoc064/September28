@@ -22,14 +22,20 @@ export const ArtifactRenderer: React.FC<ArtifactRendererProps> = ({ artifact }) 
       return <AppsianPeoplesoftArtifact />;
     case 'appsian-why':
       return <AppsianWhyArtifact />;
+    case 'appsian-before-after':
+      return <AppsianBeforeAfterArtifact />;
     case 'core42-journey':
       return <Core42JourneyArtifact />;
     case 'oracle-db-vault':
       return <OracleDatabaseVaultArtifact />;
+    case 'oracle-matrix':
+      return <OracleMatrixArtifact />;
     case 'onboarding-flow':
       return <OnboardingFlowArtifact />;
     case 'nanoheal-automation':
       return <NanohealAutomationArtifact />;
+    case 'nanoheal-outbound':
+      return <NanohealOutboundArtifact />;
     case 'valiantys-priorities':
       return <ValiantysPrioritiesArtifact />;
     case 'valiantys-factors':
@@ -890,3 +896,146 @@ const NanohealAutomationArtifact: React.FC = () => {
     </div>
   );
 };
+
+/* -------------------------------------------------------------------------- */
+/* ORACLE COMPETITIVE MATRIX (AVAILABLE ON REQUEST)                           */
+/* -------------------------------------------------------------------------- */
+const OracleMatrixArtifact: React.FC = () => {
+  return (
+    <div className="w-full bg-[#10131b] text-white rounded-lg p-6 sm:p-10 border border-[#23293a] select-none">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#1c2230] mb-6">
+        <div>
+          <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#60a5fa] mb-1">
+            Competitive matrix &amp; architectural positioning guide
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold text-white">
+            Oracle Database Vault vs. Perimeter Access Controls
+          </h3>
+        </div>
+        <div className="self-start sm:self-auto px-3 py-1 rounded bg-[#162032] border border-[#23385c] text-[11px] font-mono text-[#93c5fd]">
+          Available on request
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-[#141822] border border-[#1f2536] rounded-lg p-4">
+          <div className="text-[11px] font-mono text-[#64748b] mb-1">Control Plane</div>
+          <div className="text-sm font-semibold text-white mb-2">Mandatory Realms</div>
+          <p className="text-xs text-[#94a3b8] leading-relaxed">
+            Directly restricts DBA access to production application schemas without disrupting routine patching or maintenance.
+          </p>
+        </div>
+        <div className="bg-[#141822] border border-[#1f2536] rounded-lg p-4">
+          <div className="text-[11px] font-mono text-[#64748b] mb-1">Separation of Duty</div>
+          <div className="text-sm font-semibold text-white mb-2">Entitlement Freezing</div>
+          <p className="text-xs text-[#94a3b8] leading-relaxed">
+            Freezes database role entitlements so privileged superusers cannot modify audit or authorization privileges.
+          </p>
+        </div>
+        <div className="bg-[#141822] border border-[#1f2536] rounded-lg p-4">
+          <div className="text-[11px] font-mono text-[#64748b] mb-1">Compliance Mapping</div>
+          <div className="text-sm font-semibold text-white mb-2">Audit Assurance</div>
+          <p className="text-xs text-[#94a3b8] leading-relaxed">
+            Maps granular kernel enforcement to strict regulatory frameworks including SOX, PCI-DSS, and GDPR.
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-[#121620] border border-dashed border-[#242c3e] rounded-lg p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="text-xs text-[#94a3b8]">
+          <strong className="text-white">Confidential technical asset:</strong> Full comparative objection battlecard, benchmark telemetry, and field objection matrix available on request.
+        </div>
+        <a
+          href="mailto:tanmay1612@gmail.com?subject=Request%20Oracle%20Competitive%20Matrix%20Guide"
+          className="shrink-0 px-4 py-2 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-white text-xs font-semibold transition-colors"
+        >
+          Request asset
+        </a>
+      </div>
+    </div>
+  );
+};
+
+/* -------------------------------------------------------------------------- */
+/* NANOHEAL OUTBOUND MESSAGING (WAITING ON FILE FROM USER)                    */
+/* -------------------------------------------------------------------------- */
+const NanohealOutboundArtifact: React.FC = () => {
+  return (
+    <div className="w-full bg-[#10131b] text-white rounded-lg p-6 sm:p-10 border border-[#23293a] select-none">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#1c2230] mb-6">
+        <div>
+          <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#60a5fa] mb-1">
+            Outbound messaging framework
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold text-white">
+            Enterprise EUC Outbound Motion &amp; Playbook
+          </h3>
+        </div>
+        <div className="self-start sm:self-auto px-3 py-1 rounded bg-[#201d14] border border-[#3e341b] text-[11px] font-mono text-[#fde047]">
+          Waiting on file from user
+        </div>
+      </div>
+
+      <div className="border-2 border-dashed border-[#242c3e] rounded-xl p-8 sm:p-12 text-center bg-[#131722]/50">
+        <div className="w-12 h-12 rounded-full bg-[#182030] border border-[#26354f] flex items-center justify-center mx-auto mb-4 text-[#60a5fa]">
+          <svg viewBox="0 0 24 24" className="w-6 h-6 stroke-current fill-none" strokeWidth="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M3 9h18M9 21V9" />
+          </svg>
+        </div>
+        <h4 className="text-base font-semibold text-white mb-2">
+          Outbound messaging framework visual slot
+        </h4>
+        <p className="text-xs sm:text-sm text-[#94a3b8] max-w-md mx-auto leading-relaxed mb-4">
+          Visual asset for the enterprise EUC outbound messaging framework and SDR objection-handling sequences is ready to be dropped in.
+        </p>
+        <span className="inline-block text-[11px] font-mono text-[#64748b] bg-[#10131b] px-3 py-1 rounded border border-[#1e2434]">
+          Waiting on file from user · Drop file in to display
+        </span>
+      </div>
+    </div>
+  );
+};
+
+/* -------------------------------------------------------------------------- */
+/* APPSIAN WEBSITE BEFORE/AFTER (WAITING ON FILE FROM USER)                   */
+/* -------------------------------------------------------------------------- */
+const AppsianBeforeAfterArtifact: React.FC = () => {
+  return (
+    <div className="w-full bg-[#10131b] text-white rounded-lg p-6 sm:p-10 border border-[#23293a] select-none">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#1c2230] mb-6">
+        <div>
+          <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#60a5fa] mb-1">
+            Website before/after
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold text-white">
+            Information Architecture &amp; Messaging Overhaul
+          </h3>
+        </div>
+        <div className="self-start sm:self-auto px-3 py-1 rounded bg-[#201d14] border border-[#3e341b] text-[11px] font-mono text-[#fde047]">
+          Waiting on file from user
+        </div>
+      </div>
+
+      <div className="border-2 border-dashed border-[#242c3e] rounded-xl p-8 sm:p-12 text-center bg-[#131722]/50">
+        <div className="w-12 h-12 rounded-full bg-[#182030] border border-[#26354f] flex items-center justify-center mx-auto mb-4 text-[#60a5fa]">
+          <svg viewBox="0 0 24 24" className="w-6 h-6 stroke-current fill-none" strokeWidth="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+        </div>
+        <h4 className="text-base font-semibold text-white mb-2">
+          Website before/after comparison slot
+        </h4>
+        <p className="text-xs sm:text-sm text-[#94a3b8] max-w-md mx-auto leading-relaxed mb-4">
+          Side-by-side comparative screen capture of the 2020 legacy feature taxonomy vs. the 2021 buyer-led solution architecture.
+        </p>
+        <span className="inline-block text-[11px] font-mono text-[#64748b] bg-[#10131b] px-3 py-1 rounded border border-[#1e2434]">
+          Waiting on file from user · Drop file in to display
+        </span>
+      </div>
+    </div>
+  );
+};
+

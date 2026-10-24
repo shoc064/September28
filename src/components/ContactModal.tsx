@@ -43,8 +43,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
         {/* Header */}
         <div className="flex items-start justify-between gap-4 pb-5 mb-6 border-b border-[#1c2230]">
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#60a5fa] mb-1">
-              STRATEGIC BRIEFING &amp; EXECUTIVE INQUIRIES
+            <div className="text-[11px] font-mono uppercase tracking-[0.12em] text-[#60a5fa] mb-1">
+              Direct inquiry
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-white">
               Connect with {PORTFOLIO_DATA.profile.name}
@@ -54,7 +54,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             type="button"
             onClick={onClose}
             className="p-2 rounded bg-[#161a26] hover:bg-[#1e2436] text-[#94a3b8] hover:text-white cursor-pointer"
-            aria-label="Close contact modal"
+            aria-label="Close modal"
           >
             <X className="w-4 h-4" />
           </button>
@@ -67,10 +67,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <Mail className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-[#64748b]">
-                DIRECT EMAIL
+              <div className="text-[11px] text-[#64748b]">
+                Direct email
               </div>
-              <div className="text-xs sm:text-sm font-mono font-semibold text-white">
+              <div className="text-sm font-mono text-white">
                 {PORTFOLIO_DATA.profile.email}
               </div>
             </div>
@@ -80,17 +80,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             <button
               type="button"
               onClick={handleCopyEmail}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#181d2a] hover:bg-[#202637] border border-[#283044] text-[10.5px] font-mono text-[#cbd5e1] hover:text-white transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#181d2a] hover:bg-[#202637] border border-[#283044] text-[12px] text-[#cbd5e1] hover:text-white transition-colors cursor-pointer"
             >
               {copied ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-[#10b981]" />
-                  <span className="text-[#10b981]">COPIED</span>
+                  <span className="text-[#10b981]">Copied</span>
                 </>
               ) : (
                 <>
                   <Copy className="w-3.5 h-3.5 text-[#60a5fa]" />
-                  <span>COPY EMAIL</span>
+                  <span>Copy email</span>
                 </>
               )}
             </button>
@@ -99,9 +99,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               href={PORTFOLIO_DATA.profile.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#181d2a] hover:bg-[#202637] border border-[#283044] text-[10.5px] font-mono text-[#cbd5e1] hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#181d2a] hover:bg-[#202637] border border-[#283044] text-[12px] text-[#cbd5e1] hover:text-white transition-colors"
             >
-              <span>LINKEDIN</span>
+              <span>LinkedIn</span>
               <ExternalLink className="w-3 h-3 text-[#60a5fa]" />
             </a>
           </div>
@@ -113,11 +113,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <Check className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white mb-1.5">
-              Briefing Request Prepared
+              Message prepared
             </h3>
-            <p className="text-xs text-[#94a3b8] leading-relaxed mb-5">
-              Thank you, {formState.name || 'for reaching out'}. Your message details are
-              ready—click below to send directly via your email client or reach out at{' '}
+            <p className="text-[14px] text-[#94a3b8] leading-relaxed mb-5">
+              Thank you, {formState.name || 'for reaching out'}. Click below to send directly via your mail client or email{' '}
               <span className="text-white font-mono">
                 {PORTFOLIO_DATA.profile.email}
               </span>
@@ -130,9 +129,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 )}&body=${encodeURIComponent(
                   `${formState.message}\n\nFrom: ${formState.name} (${formState.email})`
                 )}`}
-                className="px-4 py-2 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-[11px] font-semibold uppercase tracking-wider text-white"
+                className="px-4 py-2 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-[13px] font-medium text-white"
               >
-                OPEN IN MAIL CLIENT
+                Open in mail client
               </a>
               <button
                 type="button"
@@ -140,9 +139,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   setSubmitted(false);
                   onClose();
                 }}
-                className="px-4 py-2 rounded bg-[#161a26] border border-[#252c3e] text-[11px] font-semibold uppercase tracking-wider text-[#cbd5e1] cursor-pointer"
+                className="px-4 py-2 rounded bg-[#161a26] border border-[#252c3e] text-[13px] text-[#cbd5e1] cursor-pointer"
               >
-                CLOSE
+                Close
               </button>
             </div>
           </div>
@@ -150,8 +149,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
-                  YOUR NAME *
+                <label className="block text-[12px] text-[#cbd5e1] mb-1.5">
+                  Your name *
                 </label>
                 <input
                   type="text"
@@ -161,12 +160,12 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                     setFormState((s) => ({ ...s, name: e.target.value }))
                   }
                   placeholder="Jane Doe"
-                  className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white placeholder-[#525c70]"
+                  className="w-full px-3.5 py-2 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-[14px] text-white placeholder-[#525c70]"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
-                  COMPANY / ORGANIZATION *
+                <label className="block text-[12px] text-[#cbd5e1] mb-1.5">
+                  Company / Organization *
                 </label>
                 <input
                   type="text"
@@ -176,15 +175,15 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                     setFormState((s) => ({ ...s, organization: e.target.value }))
                   }
                   placeholder="Enterprise Tech Co."
-                  className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white placeholder-[#525c70]"
+                  className="w-full px-3.5 py-2 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-[14px] text-white placeholder-[#525c70]"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
-                  WORK EMAIL *
+                <label className="block text-[12px] text-[#cbd5e1] mb-1.5">
+                  Work email *
                 </label>
                 <input
                   type="email"
@@ -194,35 +193,35 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                     setFormState((s) => ({ ...s, email: e.target.value }))
                   }
                   placeholder="jane@company.com"
-                  className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white placeholder-[#525c70]"
+                  className="w-full px-3.5 py-2 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-[14px] text-white placeholder-[#525c70]"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
-                  ENGAGEMENT FOCUS
+                <label className="block text-[12px] text-[#cbd5e1] mb-1.5">
+                  Engagement focus
                 </label>
                 <select
                   value={formState.inquiryType}
                   onChange={(e) =>
                     setFormState((s) => ({ ...s, inquiryType: e.target.value }))
                   }
-                  className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white"
+                  className="w-full px-3.5 py-2 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-[14px] text-white"
                 >
                   <option value="Director / Lead PMM Opportunity">
                     Director / Lead PMM Opportunity
                   </option>
                   <option value="Senior PMM Role">Senior PMM Role</option>
-                  <option value="Fractional / Advisory GTM">
-                    Fractional / Advisory GTM
+                  <option value="Advisory / GTM Consultation">
+                    Advisory / GTM Consultation
                   </option>
-                  <option value="Strategic Briefing">Strategic Briefing</option>
+                  <option value="Executive Briefing">Executive Briefing</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-[#8e98ab] mb-1.5">
-                CONTEXT / ROLE DETAILS *
+              <label className="block text-[12px] text-[#cbd5e1] mb-1.5">
+                Role or project context *
               </label>
               <textarea
                 rows={3}
@@ -231,8 +230,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 onChange={(e) =>
                   setFormState((s) => ({ ...s, message: e.target.value }))
                 }
-                placeholder="Share details on the role, product domain (Data, AI Infrastructure, Cybersecurity), or GTM challenge..."
-                className="w-full px-3.5 py-2.5 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-xs text-white placeholder-[#525c70] resize-none"
+                placeholder="Share details on the product domain (Data, AI Infrastructure, Cybersecurity) or GTM mandate..."
+                className="w-full px-3.5 py-2 rounded bg-[#141822] border border-[#23293a] focus:border-[#3b82f6] focus:outline-none text-[14px] text-white placeholder-[#525c70] resize-none"
               />
             </div>
 
@@ -240,16 +239,16 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2.5 rounded bg-[#151922] hover:bg-[#1c212d] border border-[#252b3b] text-[11px] font-semibold tracking-[0.1em] text-[#cbd5e1] uppercase cursor-pointer"
+                className="px-4 py-2 rounded bg-[#151922] hover:bg-[#1c212d] border border-[#252b3b] text-[13px] text-[#cbd5e1] cursor-pointer"
               >
-                CANCEL
+                Cancel
               </button>
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-[11px] font-semibold tracking-[0.1em] text-white uppercase cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-2 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-[13px] font-medium text-white cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>SEND BRIEFING REQUEST</span>
+                <span>Send message</span>
               </button>
             </div>
           </form>

@@ -1,77 +1,74 @@
 export interface MetricItem {
   value: string;
-  label: string;
-  subtext: string;
+  caption: string;
 }
 
 export interface CaseStudyArtifact {
-  id:
-    | 'appsian-peoplesoft'
-    | 'appsian-why'
-    | 'core42-journey'
-    | 'oracle-db-vault'
-    | 'onboarding-flow'
-    | 'nanoheal-automation'
-    | 'valiantys-priorities'
-    | 'valiantys-factors';
+  id: string;
   title: string;
   caption: string;
   type: string;
-  /** Optional static image path override if replacing the built-in high-DPI reproduction */
+  isAvailableOnRequest?: boolean;
+  isWaitingOnFile?: boolean;
   customImageUrl?: string;
+}
+
+export interface FlagshipTile {
+  id: string;
+  company: string;
+  sector: string;
+  years: string;
+  roleLabel: string;
+  headline: string;
+  challenge: string;
+  whatIDid: string[];
+  impactMetrics: {
+    metric: string;
+    because: string;
+  }[];
+  thumbnailSample: {
+    title: string;
+    type: string;
+    artifactId: string;
+    isWaitingOnFile?: boolean;
+  };
 }
 
 export interface CaseStudy {
   id: string;
   company: string;
-  badge: string;
-  title: string;
+  sector: string;
+  years: string;
+  roleLabel: string;
+  headline: string;
   challenge: string;
-  contribution: string;
-  metricIcon: 'database' | 'network' | 'shield' | 'chart' | 'layers';
-  metricTitle: string;
-  metricSub: string;
-  period: string;
-  role: string;
-  domain: string;
-  executiveSummary: string;
-  problemStatement: string[];
-  strategicApproach: {
+  // Specific sections ordered as: Problem → Insight → Strategy → Execution → Impact → Work samples
+  problem: string[];
+  insight: string;
+  strategy: {
     heading: string;
     body: string;
   }[];
-  deliverables: string[];
-  impactMetrics: {
-    value: string;
-    label: string;
-    detail: string;
+  execution: string[];
+  impact: {
+    metric: string;
+    because: string;
   }[];
   artifacts: CaseStudyArtifact[];
 }
 
-export interface ActiveLeadershipPillar {
-  icon: 'reposition' | 'seo' | 'reporting' | 'team';
-  title: string;
-  description: string;
-}
-
-export interface AdvisoryProject {
-  id: string;
+export interface ExperienceItem {
   company: string;
-  icon: 'terminal' | 'shield' | 'cpu' | 'network' | 'lock';
-  title: string;
+  role: string;
+  period: string;
   description: string;
-  focus: string;
-  deliverable: string;
-  linkedCaseStudyId?: string;
+  result?: string;
 }
 
-export interface MethodologyPhase {
-  phase: string;
-  icon: 'search' | 'compass' | 'rocket' | 'chart';
-  title: string;
-  description: string;
-  output: string;
+export interface IndependentPracticeItem {
+  company: string;
+  whatIDid: string;
+  result: string;
 }
 
 export const PORTFOLIO_DATA = {
@@ -81,625 +78,576 @@ export const PORTFOLIO_DATA = {
     headlinePrefix: 'Product Marketing for Enterprise Technology ',
     headlineHighlight: 'Too Complex',
     headlineSuffix: ' to Sell Itself',
-    subheadline:
-      '12+ years translating complex technology into positioning, launches, and revenue-generating GTM. 8 years at Oracle • 5+ zero-to-one PMM builds.',
-    specializations: [
-      { icon: 'database', label: 'Data Architecture' },
-      { icon: 'ai', label: 'AI Infrastructure' },
-      { icon: 'security', label: 'Cybersecurity' },
-    ],
-    currentRoleBadge: {
-      title: 'Tanmay Choudhury',
-      subtitle: 'Product Marketing Leader',
+    hero: {
+      headlinePrefix: 'Product Marketing for Enterprise Technology ',
+      headlineHighlight: 'Too Complex',
+      headlineSuffix: ' to Sell Itself',
+      h1: 'Product Marketing for Enterprise Technology Too Complex to Sell Itself',
+      sub: '12+ years translating complex technology into positioning, launches, and pipeline. Eight years at Oracle; four PMM functions built from scratch.',
+      line: 'Data · AI infrastructure · Cybersecurity',
+      buttons: {
+        primary: 'View selected work',
+        secondary: 'Download résumé',
+      },
     },
+    photoUrl:
+      'https://raw.githubusercontent.com/shoc064/September28/main/Tanmay_website_Sept26_profilephoto.jpg',
     email: 'tanmay1612@gmail.com',
-    linkedinUrl: 'https://www.linkedin.com/in/tanmaychoudhury/',
-    location: 'Global / Enterprise B2B',
+    linkedinUrl: 'https://www.linkedin.com/in/tanmaytc/',
   },
 
-  metrics: [
+  proofStrip: [
     {
-      value: '12+',
-      label: 'YEARS EXPERIENCE',
-      subtext: 'Technical B2B Product Marketing',
+      value: '12+ years',
+      caption: 'in B2B product marketing',
     },
     {
-      value: '8+',
-      label: 'YEARS AT SCALE',
-      subtext: 'Enterprise Rigor at Oracle',
+      value: '8 years',
+      caption: 'at Oracle',
     },
     {
-      value: '$1.2M+',
-      label: 'OUTBOUND PIPELINE',
-      subtext: 'Qualified Pipeline Generated',
+      value: '$1.2M',
+      caption: 'qualified pipeline in about a year at Nanoheal',
     },
     {
       value: '2.3×',
-      label: 'ORGANIC SCALE',
-      subtext: 'Monthly Organic Web Growth',
+      caption: 'monthly unique visitors within 12 months at Appsian',
     },
   ] as MetricItem[],
 
-  caseStudiesSection: {
-    kicker: 'ENTERPRISE CASE STUDIES',
-    title: 'Quantified GTM Execution',
-    subtitle:
-      'Proven strategic frameworks deployed across enterprise core tech, infrastructure security, and zero-to-one startups.',
+  whyMe: {
+    title: 'Why me',
+    columns: [
+      {
+        title: 'Technical depth',
+        body: 'I translate kernel security, database engines, and AI infrastructure into clear architecture without hand-waving.',
+      },
+      {
+        title: 'GTM leadership',
+        body: 'I align product, engineering, and sales around unified narratives, field enablement, and disciplined launch cadences.',
+      },
+      {
+        title: 'Commercial impact',
+        body: 'I tie positioning directly to qualified pipeline, shorter sales cycles, and measurable bottom-of-funnel conversion.',
+      },
+    ],
+    closing:
+      'I speak product with engineers, strategy with executives, and value with buyers.',
   },
+
+  flagshipTiles: [
+    {
+      id: 'oracle',
+      company: 'Oracle',
+      sector: 'Database & Security',
+      years: '8 years',
+      roleLabel: 'Technical product marketing',
+      headline: 'Launch enablement and developer education for Oracle Database',
+      challenge:
+        'Enterprise customers faced steep adoption barriers when migrating to multitenant architecture and preventive database security.',
+      whatIDid: [
+        'Owned launch enablement and GTM execution across 25+ product managers and engineers for Oracle Database 12c and 18c.',
+        'Built structured technical learning paths for Oracle Learning Library and Oracle University certification content.',
+      ],
+      impactMetrics: [
+        {
+          metric: '+30% consumption',
+          because:
+            'of developer and DBA learning paths because technical concepts were mapped to structured certification curricula.',
+        },
+        {
+          metric: '2 major releases',
+          because:
+            'Oracle Database 12c and 18c enabled across global sales and solution engineering teams.',
+        },
+      ],
+      thumbnailSample: {
+        title: 'Oracle Database Vault Mandatory Realm architecture',
+        type: 'Technical architecture diagram',
+        artifactId: 'oracle-db-vault',
+      },
+    },
+    {
+      id: 'nanoheal',
+      company: 'Nanoheal',
+      sector: 'Autonomous endpoints & DEX',
+      years: '2 years',
+      roleLabel: 'Product marketing leader',
+      headline: 'Commercial repositioning and outbound sales acceleration',
+      challenge:
+        'Prospective buyers viewed endpoint management as reactive helpdesk ticketing rather than proactive, self-healing automation.',
+      whatIDid: [
+        'Repositioned the category from reactive IT ticketing to zero-code digital employee experience automation.',
+        'Built the first outbound prospecting engine, ICP segmentation, and SDR objection battlecards from scratch.',
+      ],
+      impactMetrics: [
+        {
+          metric: '$1.2M qualified pipeline',
+          because:
+            'in about a year from the first outbound motion, built around new enterprise positioning and C-level ROI narratives.',
+        },
+        {
+          metric: '-22% sales cycle',
+          because:
+            'from 9 to 7 months because persona-specific objection playbooks accelerated enterprise deal qualification.',
+        },
+        {
+          metric: '20% ticket deflection',
+          because:
+            'validated in enterprise proof points, including 1,000 machines across 21 countries for Toyota Material Handling Europe.',
+        },
+      ],
+      thumbnailSample: {
+        title: 'Outbound messaging framework',
+        type: 'Enablement framework',
+        artifactId: 'nanoheal-outbound',
+        isWaitingOnFile: true,
+      },
+    },
+    {
+      id: 'appsian',
+      company: 'Appsian Security',
+      sector: 'ERP Cybersecurity & IAM',
+      years: '2 years',
+      roleLabel: 'Product marketing leader',
+      headline: 'Website revamp and multi-tier messaging for ERP security',
+      challenge:
+        'Legacy PeopleSoft and SAP customers lacked awareness of critical remote access and compliance vulnerabilities.',
+      whatIDid: [
+        'Overhauled website information architecture, buyer personas, and problem-solution messaging tiers without developer code overhead.',
+        'Anchored executive positioning on IDC breach data to establish urgent board-level risk around access controls and GDPR.',
+      ],
+      impactMetrics: [
+        {
+          metric: '2.3× monthly unique visitors',
+          because:
+            'within 12 months because the restructured website IA and content captured non-branded high-intent organic search.',
+        },
+        {
+          metric: '+21% qualified demo leads',
+          because:
+            'application-specific solution pages spoke directly to CISO and ERP administrator pain.',
+        },
+        {
+          metric: '18+ enterprise upsells',
+          because:
+            'sales and customer success were armed with tailored expansion playbooks for installed accounts.',
+        },
+      ],
+      thumbnailSample: {
+        title: 'Comprehensive data security for PeopleSoft',
+        type: 'Product page architecture',
+        artifactId: 'appsian-peoplesoft',
+      },
+    },
+    {
+      id: 'core42',
+      company: 'Core42',
+      sector: 'Sovereign Cloud & AI',
+      years: '1 year',
+      roleLabel: 'Product marketing leader',
+      headline: 'Sovereign cloud and high-density AI infrastructure positioning',
+      challenge:
+        'Regulated enterprise and government buyers struggled to reconcile public cloud compliance risks with AI computing scale.',
+      whatIDid: [
+        'Created the signature executive sales deck: "The Infrastructure Journey: Shift from Control to Chaos, and Back".',
+        'Built competitive battlecards against hyperscalers and packaged modular sovereign AI compute tiers.',
+      ],
+      impactMetrics: [
+        {
+          metric: '2 enterprise wins',
+          because:
+            'enablement kit used in 2 enterprise wins because sovereign cloud resolved data residency constraints for government and banking clients.',
+        },
+        {
+          metric: '3-tier taxonomy',
+          because:
+            'unified complex sovereign infrastructure and high-density AI compute into clear buyer tiers.',
+        },
+      ],
+      thumbnailSample: {
+        title: 'The Infrastructure Journey: Shift from Control to Chaos, and Back',
+        type: 'Sales deck',
+        artifactId: 'core42-journey',
+      },
+    },
+  ] as FlagshipTile[],
 
   caseStudies: [
     {
       id: 'oracle',
-      company: 'ORACLE',
-      badge: 'Enterprise Scale',
-      title: 'Technical Product Marketing & Enterprise Database GTM',
+      company: 'Oracle',
+      sector: 'Database & Security',
+      years: '8 years',
+      roleLabel: 'Technical product marketing',
+      headline: 'Launch enablement and developer education for Oracle Database',
       challenge:
-        'Translating complex database security, storage, and developer APIs into structured adoption paths across global enterprise accounts.',
-      contribution:
-        'Owned launch enablement and GTM execution across 25+ cross-functional contributors; established Oracle Learning Library for developer education.',
-      metricIcon: 'database',
-      metricTitle: '3 Major Releases',
-      metricSub: 'Oracle 12c, 18c, 19c • +30% consumption',
-      period: '8 Years at Oracle Corporation',
-      role: 'Senior Technical Product Marketing & Enablement Lead',
-      domain: 'Enterprise Database Architecture · Security · Cloud Migration',
-      executiveSummary:
-        'Across 8 years and three flagship database generations (Oracle 12c, 18c, and 19c), I led technical product marketing, security realm architecture communication, and developer adoption programs—bridging core database engineering with global enterprise field teams and C-level IT buyers.',
-      problemStatement: [
-        'Enterprise customers faced steep technical barriers when adopting multitenant architecture, preventive database security controls (Oracle Database Vault Mandatory Realms), and cloud-ready database capabilities.',
-        'Global sales and solution engineering teams needed clear use-case taxonomy, compliance narratives, and hands-on technical assets to move customers from legacy versions into modern releases.',
-        'Product education across 25+ engineering and PM contributors lacked a unified self-serve curriculum and structured onboarding journey.',
+        'Enterprise customers faced steep adoption barriers when migrating to multitenant architecture and preventive database security.',
+      problem: [
+        'Enterprise customers struggled to grasp the shift to multitenant architecture, preventive security realms, and autonomous operational controls.',
+        'Global sales engineers lacked modular technical decks to explain low-level kernel protections to risk-averse security architects.',
       ],
-      strategicApproach: [
+      insight:
+        'Enterprise architects do not buy abstract security features; they adopt systems when technical constraints map directly to regulated compliance realms and certified DBA workflows.',
+      strategy: [
         {
-          heading: 'Technical Value Translation for Database Security & Core Architecture',
-          body: 'Distilled low-level kernel security capabilities—such as Oracle Database Vault Mandatory Realms for maintenance, entitlement controls, and incident response—into clear architectural diagrams and compliance use-case matrices for CISOs and DBAs.',
+          heading: 'Technical translation for database security',
+          body: 'I distilled Mandatory Realms, entitlement controls, and preventive privileges into architectural schematics that CISOs and database administrators trusted.',
         },
         {
-          heading: 'Cross-Functional Release GTM (Oracle 12c, 18c, 19c)',
-          body: 'Orchestrated launch readiness across 25+ product managers, engineers, and field specialists, standardizing release messaging hierarchies, solution briefs, and customer migration playbooks.',
-        },
-        {
-          heading: 'Oracle Learning Library & Structured Onboarding Flows',
-          body: 'Architected modular technical learning paths and end-to-end onboarding workflows (Confirmed → Fulfilled → Reviewed → Onboarded) that drove a +30% lift in learning consumption across global enterprise accounts.',
+          heading: 'Certified curriculum and developer learning paths',
+          body: 'I aligned developer and DBA learning paths with Oracle University certification objectives, creating structured adoption milestones.',
         },
       ],
-      deliverables: [
-        'Oracle 12c, 18c, and 19c Release Positioning & Technical Enablement Kits',
-        'Oracle Database Vault Mandatory Realms Technical Whitepapers & Use-Case Architecture',
-        'Oracle Learning Library (OLL) Developer & DBA Curriculum Architecture',
-        'Multi-stage Enterprise Onboarding & Compliance Review Workflows',
+      execution: [
+        'Orchestrated release enablement across 25+ product managers and engineers for Oracle Database 12c and 18c.',
+        'Authored technical whitepapers and architecture diagrams detailing Oracle Database Vault Mandatory Realms.',
+        'Produced modular hands-on learning paths for Oracle Learning Library.',
       ],
-      impactMetrics: [
+      impact: [
         {
-          value: '3 Releases',
-          label: 'FLAGSHIP LAUNCHES',
-          detail: 'Core GTM execution across Oracle Database 12c, 18c, and 19c',
+          metric: '+30% consumption',
+          because:
+            'of developer and DBA learning paths because technical concepts were mapped to structured certification curricula.',
         },
         {
-          value: '+30%',
-          label: 'CONTENT CONSUMPTION',
-          detail: 'Sustained increase in technical enablement & learning adoption',
-        },
-        {
-          value: '25+',
-          label: 'CONTRIBUTORS ALIGNED',
-          detail: 'Cross-functional PM, engineering, and field marketing contributors led',
+          metric: '2 major releases',
+          because:
+            'Oracle Database 12c and 18c enabled across global sales and solution engineering teams.',
         },
       ],
       artifacts: [
         {
           id: 'oracle-db-vault',
-          title: 'Oracle Database Vault — Mandatory Realm Architecture & Use Cases',
+          title: 'Oracle Database Vault — Mandatory Realm architecture and use cases',
           caption:
-            'Technical product marketing architecture illustrating how Mandatory Realms block unauthorized privileged DBA queries while preserving application-tier HR and Finance access during maintenance and incident response.',
-          type: 'Technical Whitepaper & Architecture Diagram',
+            'Technical architecture diagram illustrating how Mandatory Realms block unauthorized privileged DBA queries while preserving application-tier access.',
+          type: 'Technical architecture diagram',
+        },
+        {
+          id: 'oracle-matrix',
+          title: 'Technical to Business Translation Matrix',
+          caption:
+            'Technical translation framework mapping low-level database security parameters into business compliance narratives.',
+          type: 'Strategic framework',
+          isAvailableOnRequest: true,
         },
         {
           id: 'onboarding-flow',
-          title: 'Multi-Stage Compliance & Schedule Onboarding Workflow',
+          title: 'Multi-stage compliance and schedule onboarding workflow',
           caption:
-            'Process architecture mapping the 4-stage compliance workflow (Confirmed → Fulfilled → Reviewed → Onboarded) with site-level visibility and approval override governance.',
-          type: 'Process & Enablement Flow',
+            'Process architecture mapping the four-stage compliance workflow with site-level governance and review overrides.',
+          type: 'Enablement flow',
         },
       ],
     },
     {
       id: 'nanoheal',
-      company: 'NANOHEAL',
-      badge: 'Outbound GTM',
-      title: 'Commercial Product Marketing & Outbound Sales Acceleration',
+      company: 'Nanoheal',
+      sector: 'Autonomous endpoints & DEX',
+      years: '2 years',
+      roleLabel: 'Product marketing leader',
+      headline: 'Commercial repositioning and outbound sales acceleration',
       challenge:
-        'Evolving market positioning from reactive IT ticketing to autonomous endpoint healing while setting up an outbound motion from scratch.',
-      contribution:
-        'Led cross-functional marketing pod, built ICP-based outbound engine, structured high-velocity SDR playbooks and objection handling.',
-      metricIcon: 'network',
-      metricTitle: '$1.2M Pipeline',
-      metricSub: '-22% sales cycle (9 to 7 mo)',
-      period: 'Zero-to-One Outbound & Commercial Repositioning',
-      role: 'Product Marketing & Growth Lead',
-      domain: 'Autonomous Endpoint Management · Digital Employee Experience (DEX)',
-      executiveSummary:
-        'Repositioned Nanoheal from an IT support automation tool into an enterprise Digital Experience Automation and self-healing endpoint platform. Built the outbound GTM engine from zero, generating $1.2M+ in qualified enterprise pipeline and compressing the average enterprise sales cycle by 22%.',
-      problemStatement: [
-        'Prospective enterprise IT buyers perceived endpoint tools as commodities tied to reactive helpdesk ticketing rather than proactive, zero-code self-healing.',
-        'The organization lacked a structured outbound prospecting engine, ICP segmentation, and quantified enterprise proof points to win global workplace transformation deals.',
-        'Sales cycles averaged 9 months due to fragmented technical objection handling and unclear ROI framing for VP of Infrastructure and EUC personas.',
+        'Prospective buyers viewed endpoint management as reactive helpdesk ticketing rather than proactive, self-healing automation.',
+      problem: [
+        'Enterprise IT leaders viewed endpoint software as commoditized ticket-management tooling rather than proactive digital experience automation.',
+        'The company had no structured outbound motion or quantifiable enterprise proof to target infrastructure VPs.',
       ],
-      strategicApproach: [
+      insight:
+        'CIOs and workplace directors do not want another monitoring dashboard; they want automated resolution that deflects helpdesk tickets before employees notice.',
+      strategy: [
         {
-          heading: 'Category Repositioning: Reactive IT to Self-Healing DEX',
-          body: 'Reframed the product narrative around zero-code Digital Experience Automation—emphasizing real-time remediation, compliance hardening, and measurable ticket deflection.',
+          heading: 'Category reframing around digital employee experience',
+          body: 'I shifted the core narrative from reactive ticketing to zero-code, autonomous self-healing for distributed endpoints.',
         },
         {
-          heading: 'Quantified Enterprise Customer Proof (Toyota Material Handling Europe)',
-          body: 'Codified flagship enterprise deployment metrics (1,000 client machines across 21 countries, 120 EUC applications, 39 automated use cases, and 20% workplace tower ticket volume reduction) into high-converting sales collateral.',
-        },
-        {
-          heading: 'Full-Funnel Outbound Pod & SDR Enablement',
-          body: 'Built ICP-segmented outbound sequences, persona-specific objection battlecards, and executive briefing decks that shortened deal progression from 9 months to 7 months.',
+          heading: 'Enterprise proof-led outbound motion',
+          body: 'I codified deployment metrics from global enterprises into persona-based battlecards and outbound messaging sequences.',
         },
       ],
-      deliverables: [
-        'Digital Experience Automation Core Positioning & Messaging Hierarchy',
-        'Toyota Material Handling Europe (TMHE) Quantified Value Case Deck',
-        'ICP Outbound Playbooks, Multi-Touch SDR Sequences & Objection Battlecards',
-        'Enterprise ROI Calculator & Workplace Tower Deflection Framework',
+      execution: [
+        'Built the outbound sales motion, ICP definitions, and SDR objection-handling playbooks from scratch.',
+        'Created executive briefing decks featuring verified 20% ticket deflection at Toyota Material Handling Europe across 21 countries.',
       ],
-      impactMetrics: [
+      impact: [
         {
-          value: '$1.2M+',
-          label: 'QUALIFIED PIPELINE',
-          detail: 'Net-new outbound enterprise pipeline generated from scratch',
+          metric: '$1.2M qualified pipeline',
+          because:
+            'in about a year from the first outbound motion, built around new enterprise positioning and C-level ROI narratives.',
         },
         {
-          value: '-22%',
-          label: 'SALES CYCLE REDUCTION',
-          detail: 'Compressed enterprise deal cycle from 9 months down to 7 months',
+          metric: '-22% sales cycle',
+          because:
+            'from 9 to 7 months because persona-specific objection playbooks accelerated enterprise deal qualification.',
         },
         {
-          value: '20%',
-          label: 'CUSTOMER TICKET DEFLECTION',
-          detail: 'Validated workplace tower ticket volume reduction in enterprise proof',
+          metric: '20% ticket deflection',
+          because:
+            'validated in enterprise proof points across 1,000 machines and 120 EUC applications.',
         },
       ],
       artifacts: [
         {
           id: 'nanoheal-automation',
-          title: 'Nanoheal Digital Experience Automation & TMHE Enterprise Proof',
+          title: 'Nanoheal digital experience automation and TMHE enterprise proof',
           caption:
-            'Executive sales enablement slide pairing Nanoheal’s zero-code self-healing positioning with quantified deployment outcomes at Toyota Material Handling Europe across 21 countries.',
-          type: 'Enterprise Enablement & Customer Proof Deck',
+            'Executive sales slide highlighting zero-code endpoint automation and quantified deployment metrics at Toyota Material Handling Europe.',
+          type: 'Customer proof deck',
+        },
+        {
+          id: 'nanoheal-outbound',
+          title: 'Outbound messaging framework',
+          caption:
+            'Targeted outbound messaging and SDR qualification matrix for enterprise EUC leaders.',
+          type: 'Enablement framework',
+          isWaitingOnFile: true,
         },
       ],
     },
     {
       id: 'appsian',
-      company: 'APPSIAN SECURITY',
-      badge: 'ERP Cyber & IAM',
-      title: 'ERP Data Security Positioning & Multi-Tier Messaging',
+      company: 'Appsian Security',
+      sector: 'ERP Cybersecurity & IAM',
+      years: '2 years',
+      roleLabel: 'Product marketing leader',
+      headline: 'Website revamp and multi-tier messaging for ERP security',
       challenge:
-        'Communicating the architectural value of lightweight ERP data security for PeopleSoft & SAP without custom developer code overhead.',
-      contribution:
-        'Overhauled site information architecture, messaging hierarchy, buyer persona roadmaps, and customer insight playbooks.',
-      metricIcon: 'shield',
-      metricTitle: '2.3× Traffic Lift',
-      metricSub: '+21% Qualified Leads • 18+ Upsells',
-      period: 'Enterprise ERP Cybersecurity Repositioning',
-      role: 'Product Marketing Lead',
-      domain: 'ERP Data Security · IAM · PeopleSoft & SAP Compliance',
-      executiveSummary:
-        'Architected a complete messaging, positioning, and web information architecture overhaul for Appsian Security—translating deep ERP security controls (fine-grained access, MFA, and user behavior analytics for PeopleSoft and SAP) into high-converting enterprise narratives that drove a 2.3× organic traffic lift and 18+ existing-account upsells.',
-      problemStatement: [
-        'Legacy ERP systems (Oracle PeopleSoft and SAP) were never architected for zero-trust remote access, leaving 64% of deployments exposed to internal and external breaches.',
-        'Existing messaging was overly focused on feature mechanics rather than the urgent business risk of GDPR/SOX non-compliance and ERP data exfiltration.',
-        'Website information architecture failed to segment buyers by ERP ecosystem (PeopleSoft vs. SAP vs. Oracle EBS) or buyer role (CISO vs. ERP Administrator).',
+        'Legacy PeopleSoft and SAP customers lacked awareness of critical remote access and compliance vulnerabilities.',
+      problem: [
+        'ERP deployments (PeopleSoft and SAP) were vulnerable to unauthorized access, yet buyers treated security as an internal customization headache.',
+        'The existing website was organized around technical features rather than buyer personas and regulatory audit risks.',
       ],
-      strategicApproach: [
+      insight:
+        'CISOs act when risk is substantiated by third-party data and the implementation eliminates custom developer overhead.',
+      strategy: [
         {
-          heading: 'Risk-Led Executive Narrative ("Why Appsian")',
-          body: 'Anchored top-of-funnel executive messaging on analyst-validated urgency (IDC: 64% of Oracle and SAP ERP deployments breached in 24 months) paired with three clear pillars: Access Controls, Compliance & Audit, and Threat Protection.',
+          heading: 'Urgency anchored in analyst research',
+          body: 'I anchored top-of-funnel positioning on IDC research showing 64% of ERP deployments were breached within 24 months.',
         },
         {
-          heading: 'Application-Specific Solution Architecture (PeopleSoft & SAP)',
-          body: 'Built dedicated product and solution landing hierarchies demonstrating how Appsian closes native ERP security gaps across HCM and FSCM without expensive custom code or ERP upgrades.',
-        },
-        {
-          heading: 'Customer Expansion & Insight Playbooks',
-          body: 'Equipped account executives and CSMs with persona roadmaps and social proof from marquee enterprise customers (Wells Fargo, GAP, GEICO, Hackensack Meridian Health, Adventist Health, State of Ohio, H-E-B), unlocking 18+ upsells.',
+          heading: 'Multi-tier web information architecture',
+          body: 'I rebuilt the digital presence to segment buyers by platform (PeopleSoft, SAP) and pain (access controls, compliance audit, threat protection).',
         },
       ],
-      deliverables: [
-        'Full Website Information Architecture & Solution Page Overhaul',
-        '"Why Appsian" Corporate Positioning & Analyst-Backed Risk Narrative',
-        'PeopleSoft & SAP Multi-Tier Messaging Frameworks',
-        'Customer Expansion Playbooks & Enterprise Reference Architecture',
+      execution: [
+        'Overhauled website information architecture and messaging tiers without custom code overhead.',
+        'Created customer expansion playbooks and reference architectures featuring marquee customers like Wells Fargo, GAP, and GEICO.',
       ],
-      impactMetrics: [
+      impact: [
         {
-          value: '2.3×',
-          label: 'ORGANIC TRAFFIC LIFT',
-          detail: 'Sustained monthly organic web growth following IA and messaging overhaul',
+          metric: '2.3× monthly unique visitors',
+          because:
+            'within 12 months because the restructured website IA and content captured non-branded high-intent organic search.',
         },
         {
-          value: '+21%',
-          label: 'QUALIFIED LEADS',
-          detail: 'Increase in marketing-qualified enterprise demo requests',
+          metric: '+21% qualified demo leads',
+          because:
+            'application-specific solution pages spoke directly to CISO and ERP administrator pain.',
         },
         {
-          value: '18+',
-          label: 'ENTERPRISE UPSELLS',
-          detail: 'Expansion deals closed across installed base accounts',
+          metric: '18+ enterprise upsells',
+          because:
+            'sales and customer success were armed with tailored expansion playbooks for installed accounts.',
         },
       ],
       artifacts: [
         {
           id: 'appsian-peoplesoft',
-          title: 'Comprehensive Data Security for PeopleSoft — Product Page Architecture',
+          title: 'Comprehensive data security for PeopleSoft',
           caption:
-            'Restructured product page combining clear value proposition, enterprise trust validation (Wells Fargo, GAP, GEICO, H-E-B), and problem-solution framing for PeopleSoft HCM/FSCM.',
-          type: 'Web Information Architecture & Product Messaging',
+            'Product page architecture combining trust validation (Wells Fargo, GAP, GEICO) and problem-solution framing.',
+          type: 'Web architecture',
         },
         {
           id: 'appsian-why',
-          title: '"Why Appsian" — Category Risk & ERP Breach Positioning',
+          title: 'Why Appsian — category risk and ERP breach positioning',
           caption:
-            'Executive positioning page leveraging IDC ERP breach data (64% breached in 24 months) to establish urgency around Access Controls, Compliance & Audit, and Threat Protection.',
-          type: 'Corporate Positioning & Messaging Hierarchy',
+            'Executive positioning page leveraging IDC breach data (64% breached in 24 months) to establish boardroom urgency.',
+          type: 'Positioning framework',
+        },
+        {
+          id: 'appsian-before-after',
+          title: 'Website revamp: before and after',
+          caption:
+            'Visual walkthrough of the website architecture and messaging overhaul.',
+          type: 'Website before/after',
+          isWaitingOnFile: true,
         },
       ],
     },
     {
       id: 'core42',
-      company: 'CORE42 (A G42 COMPANY)',
-      badge: 'Sovereign Cloud & AI',
-      title: 'AI Infrastructure Positioning & Enterprise Sovereign Cloud GTM',
+      company: 'Core42',
+      sector: 'Sovereign Cloud & AI',
+      years: '1 year',
+      roleLabel: 'Product marketing leader',
+      headline: 'Sovereign cloud and high-density AI infrastructure positioning',
       challenge:
-        'Translating sovereign cloud architectures and high-density AI infrastructure capabilities for compliance-heavy, regulated enterprise buyers.',
-      contribution:
-        'Strategic sales enablement advisor; built executive pitch decks, competitive battlecards, packaging frameworks, and market taxonomy.',
-      metricIcon: 'chart',
-      metricTitle: '2 Enterprise Wins',
-      metricSub: 'Sovereign AI Infrastructure Conversion',
-      period: 'Strategic GTM & Enablement Advisory',
-      role: 'Product Marketing & Sales Enablement Advisor',
-      domain: 'Sovereign Cloud · High-Density AI Infrastructure · Regulated Enterprise',
-      executiveSummary:
-        'Partnered with Core42 (a G42 company) to define market taxonomy, executive pitch narratives, and competitive battlecards for Sovereign Cloud and high-density AI infrastructure—enabling enterprise sales teams to convert regulated public-sector, financial, and energy buyers.',
-      problemStatement: [
-        'Regulated enterprises and government entities were caught between rigid on-premise server rooms and public cloud environments that created compliance and data residency exposure.',
-        'Sales teams needed a crisp executive narrative ("The Infrastructure Journey: Shift from Control to Chaos, and Back") that positioned Sovereign Cloud as the definitive path to regaining control without sacrificing AI scale.',
-        'Complex multi-product offerings across sovereign cloud, AI compute clusters, and managed services required unified packaging and competitive battlecards.',
+        'Regulated enterprise and government buyers struggled to reconcile public cloud compliance risks with AI computing scale.',
+      problem: [
+        'Regulated government and banking organizations were trapped between on-premise hardware constraints and public cloud data sovereignty issues.',
+        'Sales teams needed a compelling executive narrative to differentiate sovereign infrastructure from standard hyperscaler offerings.',
       ],
-      strategicApproach: [
+      insight:
+        'Sovereignty is not an infrastructure feature; it is an executive governance strategy for nations and regulated enterprises building generative AI.',
+      strategy: [
         {
-          heading: '"Control → Chaos → Gaining Back Control" Executive Narrative',
-          body: 'Created the signature 3-stage infrastructure evolution narrative contrasting On-Premise limitations and Public Cloud compliance chaos against Core42’s fully compliant, sovereign cloud architecture.',
+          heading: '"Control → Chaos → Gaining back control" narrative',
+          body: 'I created an executive narrative contrasting on-premise limits and public cloud compliance exposure against sovereign cloud assurance.',
         },
         {
-          heading: 'Competitive Battlecards & Objection Handling',
-          body: 'Armed enterprise account directors with head-to-head positioning against hyperscalers and regional providers around data residency, regulatory sovereignty, and AI cluster economics.',
-        },
-        {
-          heading: 'Solution Packaging & Market Taxonomy',
-          body: 'Structured technical capabilities into modular enterprise solution tiers tailored for ministries, banking institutions, and national critical infrastructure.',
+          heading: 'Competitive positioning against hyperscalers',
+          body: 'I built head-to-head battlecards highlighting residency guarantees and dedicated high-density AI cluster economics.',
         },
       ],
-      deliverables: [
-        'Executive Pitch Deck ("The Infrastructure Journey: Shift from Control to Chaos, and Back")',
-        'Sovereign Cloud & AI Infrastructure Packaging Frameworks',
-        'Hyperscaler vs. Sovereign Cloud Competitive Battlecards',
-        'Buyer Persona Playbooks for CISO, CIO, and Chief Data Officers',
+      execution: [
+        'Developed the executive sales deck "The Infrastructure Journey: Shift from Control to Chaos, and Back".',
+        'Structured modular sovereign cloud and AI compute solution packaging for field teams.',
       ],
-      impactMetrics: [
+      impact: [
         {
-          value: '2 Wins',
-          label: 'ENTERPRISE CONVERSIONS',
-          detail: 'Direct contribution to flagship Sovereign AI Infrastructure enterprise wins',
+          metric: '2 enterprise wins',
+          because:
+            'enablement kit used in 2 enterprise wins because sovereign cloud resolved data residency constraints for government and banking clients.',
         },
         {
-          value: '100%',
-          label: 'FIELD ADOPTION',
-          detail: 'Standardized sovereign cloud pitch narrative across enterprise sales pod',
-        },
-        {
-          value: '3-Tier',
-          label: 'TAXONOMY ARCHITECTURE',
-          detail: 'Unified messaging across Sovereign Cloud, AI Compute, and Core Services',
+          metric: '3-tier taxonomy',
+          because:
+            'unified complex sovereign infrastructure and high-density AI compute into clear buyer tiers.',
         },
       ],
       artifacts: [
         {
           id: 'core42-journey',
-          title: 'Core42 — "The Infrastructure Journey: Shift from Control to Chaos, and Back"',
+          title: 'The Infrastructure Journey: Shift from Control to Chaos, and Back',
           caption:
-            'Executive narrative slide contrasting On-Premise physical constraints and Public Cloud compliance/data-residency risks with Core42’s Sovereign Cloud resolution.',
-          type: 'Executive Pitch Deck Narrative',
-        },
-      ],
-    },
-    {
-      id: 'valiantys',
-      company: 'VALIANTYS',
-      badge: 'Enterprise Vertical GTM',
-      title: 'Atlassian Ecosystem Vertical GTM & Executive Roundtables',
-      challenge:
-        'Moving upmarket from horizontal IT service delivery to industry-specific vertical value propositions across Utilities, Energy, Financial Services, and Healthcare.',
-      contribution:
-        'Structured vertical marketing playbooks, macro-industry research decks, and executive roundtable narratives that lifted event lead conversion by +20%.',
-      metricIcon: 'layers',
-      metricTitle: '+20% Event Leads',
-      metricSub: 'Enterprise Vertical GTM Playbooks',
-      period: 'Advisory & Vertical GTM Sprint',
-      role: 'Product Marketing Consultant',
-      domain: 'Enterprise IT · Utilities & Energy · Financial Services · Atlassian Cloud',
-      executiveSummary:
-        'Developed industry-specific vertical GTM playbooks and C-suite roundtable collateral for Valiantys, translating horizontal enterprise IT and Agile transformation offerings into tailored sector narratives for Utilities, Financial Services, and Healthcare.',
-      problemStatement: [
-        'Enterprise buyers in regulated industries (Utilities, Energy, Banking) do not buy horizontal "tool migrations"—they buy solutions to sector-specific pressures like net-zero transition, grid reliability, cybersecurity accountability, and talent gaps.',
-        'Field marketing and enterprise reps needed authoritative industry research decks to anchor executive roundtables and C-level briefings.',
-      ],
-      strategicApproach: [
-        {
-          heading: 'Sector-Native Research & Executive Enablement',
-          body: 'Synthesized political, environmental, and workforce macro-factors affecting the utility and financial sectors into visual executive briefing assets.',
-        },
-        {
-          heading: '7-Pillar Industry Priority Mapping',
-          body: 'Mapped Valiantys digital innovation, AI/ML analytics, and zero-trust cybersecurity capabilities directly to the 7 core priorities of modern utility and enterprise leaders.',
-        },
-      ],
-      deliverables: [
-        'Utility & Energy Sector Executive Briefing Decks',
-        'Vertical GTM Playbooks for Financial Services & Healthcare',
-        'Executive Roundtable Discussion Guides & Field Enablement Kits',
-      ],
-      impactMetrics: [
-        {
-          value: '+20%',
-          label: 'EVENT LEAD CONVERSION',
-          detail: 'Increase in qualified enterprise leads from vertical executive events',
-        },
-        {
-          value: '3 Verticals',
-          label: 'INDUSTRY PLAYBOOKS',
-          detail: 'Dedicated GTM frameworks across Utilities, Finance, and Healthcare',
-        },
-      ],
-      artifacts: [
-        {
-          id: 'valiantys-priorities',
-          title: 'Valiantys — "What does the utilities sector need now?"',
-          caption:
-            '7-node industry priority framework connecting Net Zero acceleration, AI/ML digital innovation, zero-trust cybersecurity, and e-mobility value chain convergence.',
-          type: 'Vertical GTM Strategy & Executive Briefing Slide',
-        },
-        {
-          id: 'valiantys-factors',
-          title: 'Valiantys — "Factors affecting the utility industry sector"',
-          caption:
-            'Macro-market analysis across Political, Environmental, and Social/People dimensions used to frame enterprise digital transformation urgency.',
-          type: 'Market Intelligence & Field Enablement Asset',
+            'Executive narrative slide contrasting On-Premise physical limits and Public Cloud exposure with Sovereign Cloud compliance.',
+          type: 'Sales deck',
         },
       ],
     },
   ] as CaseStudy[],
 
-  activeLeadership: {
-    badge: 'ACTIVE LEADERSHIP',
-    period: 'Jan 2026 – Present',
-    title: 'Marketing Lead | Appventory',
-    stage: 'Stage: Seed to Series A GTM',
-    subtitle:
-      'Fractional/Advisory leadership brought in to reposition the product, rebuild the marketing function ground-up, and unlock durable customer acquisition.',
-    pillars: [
-      {
-        icon: 'reposition',
-        title: 'Core Product Repositioning',
-        description:
-          'Rebuilt marketing GTM strategy from zero, realigning feature specifications with CFO-level SaaS compliance and vendor visibility narratives.',
-      },
-      {
-        icon: 'seo',
-        title: 'High-Intent SEO Wedge',
-        description:
-          'Architected specialized accountant & auditor programmatic content hubs to capture non-branded bottom-of-funnel search intent.',
-      },
-      {
-        icon: 'reporting',
-        title: 'Executive Reporting Cadence',
-        description:
-          'Established end-to-end pipeline attribution and board-level monthly reporting cadence across inbound and outbound channels.',
-      },
-      {
-        icon: 'team',
-        title: 'Team & Field Execution',
-        description:
-          'Recruited dedicated Demand Gen talent and executed strategic field programs, realizing +20% higher qualified event lead conversions.',
-      },
-    ] as ActiveLeadershipPillar[],
-  },
+  moreExperience: [
+    {
+      company: 'AppVentory',
+      role: 'Product Marketing Manager (Marketing Lead)',
+      period: 'Feb 2026 – present',
+      description: 'Software & AI spend management.',
+    },
+    {
+      company: 'Exxat',
+      role: 'Product Marketing Lead',
+      period: '2021 – 2023',
+      description:
+        'Built healthcare education clinical placement platform positioning, accelerating academic partner adoption.',
+    },
+    {
+      company: 'Happay',
+      role: 'Product Marketing Manager',
+      period: '2019 – 2021',
+      description:
+        'Spearheaded corporate expense management GTM, expanding mid-market corporate accounts.',
+    },
+  ] as ExperienceItem[],
 
-  advisorySection: {
-    kicker: 'ADVISORY & CONSULTING',
-    title: 'Independent Product Marketing Practice',
-    period: '(2023 – Present)',
-    subtitle:
-      'Specialized strategic GTM, repositioning, and technical enablement sprints across cybersecurity, AI/ML platforms, and enterprise cloud.',
-    projects: [
-      {
-        id: 'adv-core42',
-        company: 'CORE42',
-        icon: 'terminal',
-        title: 'Sovereign AI & Cloud GTM',
-        description:
-          'Engineered messaging hierarchy, sales collateral, and buyer persona playbooks for sovereign data centers and private cloud AI suites.',
-        focus: 'Focus: Cloud Infra',
-        deliverable: 'Strategic Enablement',
-        linkedCaseStudyId: 'core42',
-      },
-      {
-        id: 'adv-zenarmor',
-        company: 'ZENARMOR',
-        icon: 'shield',
-        title: 'Next-Gen Firewall Enablement',
-        description:
-          'Conducted in-depth cybersecurity market intelligence and produced competitive battlecards against legacy enterprise firewalls.',
-        focus: 'Focus: Network Sec',
-        deliverable: 'Sales Battlecards',
-      },
-      {
-        id: 'adv-waferwire',
-        company: 'WAFERWIRE',
-        icon: 'cpu',
-        title: 'AI/ML Platform Value Translation',
-        description:
-          'Distilled deep artificial intelligence, analytics, and data pipeline technologies into tangible, C-suite ROI positioning frameworks.',
-        focus: 'Focus: Enterprise AI',
-        deliverable: 'Messaging Blueprint',
-      },
-      {
-        id: 'adv-valiantys',
-        company: 'VALIANTYS',
-        icon: 'network',
-        title: 'Atlassian Ecosystem Vertical GTM',
-        description:
-          'Structured vertical marketing playbooks and executive roundtables for financial services and healthcare enterprise customers.',
-        focus: 'Focus: Enterprise IT',
-        deliverable: '+20% Event Leads',
-        linkedCaseStudyId: 'valiantys',
-      },
-      {
-        id: 'adv-lightbeam',
-        company: 'LIGHTBEAM',
-        icon: 'lock',
-        title: 'Data Privacy at IAPP 2024',
-        description:
-          'Delivered targeted sales enablement playbooks and multi-touch presentation assets for major global privacy officer summit.',
-        focus: 'Focus: Data Privacy',
-        deliverable: 'Event Enablement',
-      },
-    ] as AdvisoryProject[],
-  },
+  independentPractice: [
+    {
+      company: 'Valiantys',
+      whatIDid: 'Structured vertical GTM playbooks for utilities and finance',
+      result: 'lifted event lead conversion by +20%.',
+    },
+    {
+      company: 'LightBeam',
+      whatIDid: 'Built CISO sales enablement playbooks and presentation assets',
+      result: 'delivered targeted positioning for IAPP Global Privacy Summit.',
+    },
+    {
+      company: 'Zenarmor',
+      whatIDid: 'Produced competitive cybersecurity intelligence and battlecards',
+      result: 'positioned next-gen firewall against legacy appliances.',
+    },
+    {
+      company: 'Waferwire',
+      whatIDid: 'Distilled enterprise AI/ML pipelines into C-suite ROI frameworks',
+      result: 'translated deep data architectures into executive positioning.',
+    },
+  ] as IndependentPracticeItem[],
 
-  methodologySection: {
-    kicker: 'EXECUTION METHODOLOGY',
-    title: 'How I Work',
-    phases: [
-      {
-        phase: 'PHASE 01',
-        icon: 'search',
-        title: 'UNDERSTAND',
-        description:
-          'Uncover real customer pain, buyer personas, and technical product nuances through market research and customer win/loss interviews.',
-        output: 'Output: ICP & Insight Report',
-      },
-      {
-        phase: 'PHASE 02',
-        icon: 'compass',
-        title: 'POSITION',
-        description:
-          'Craft sharp, differentiated messaging hierarchies that bridge deep technical capabilities into quantifiable business ROI for buyers.',
-        output: 'Output: Narrative & Core Decks',
-      },
-      {
-        phase: 'PHASE 03',
-        icon: 'rocket',
-        title: 'ENABLE',
-        description:
-          'Equipping sales, SDRs, and channel partners with battlecards, demos, customer slides, and clear objection-handling sequences.',
-        output: 'Output: Battlecards & Field Kits',
-      },
-      {
-        phase: 'PHASE 04',
-        icon: 'chart',
-        title: 'MEASURE',
-        description:
-          'Aligning GTM execution with pipeline creation, sales cycle compression, web engagement metrics, and expansion revenue.',
-        output: 'Output: Pipeline & Cycle Analytics',
-      },
-    ] as MethodologyPhase[],
-  },
-
-  executiveProfile: {
-    kicker: 'EXECUTIVE PROFILE',
-    title: 'Senior Product Marketing Leadership',
-    highlights: [
-      '12+ Years Total Experience',
-      '8 Years at Oracle Corporation',
-      '5+ Zero-to-One PMM Inceptions',
-    ],
+  contact: {
+    heading: "Building something complex? Let's talk.",
+    email: 'tanmay1612@gmail.com',
+    linkedinUrl: 'https://www.linkedin.com/in/tanmaytc/',
+    subtext: 'Open to full-time product marketing leadership roles.',
   },
 
   resumeData: {
     summary:
-      'Senior Product Marketing Leader with 12+ years of experience translating complex enterprise technology—Data Architecture, AI Infrastructure, and Cybersecurity—into differentiated market positioning, high-converting launches, and quantifiable pipeline growth. Combines 8 years of enterprise scale at Oracle with 5+ zero-to-one PMM builds across high-growth B2B technology companies.',
-    coreCompetencies: [
-      'Category Design & Positioning',
-      'Multi-Tier Messaging Architecture',
-      'Enterprise GTM Strategy & Launch Execution',
-      'Sales Enablement & Competitive Battlecards',
-      'ICP Segmentation & Outbound Acceleration',
-      'Buyer Persona & Win/Loss Research',
-      'Analyst Relations & Executive Narratives',
-      'Pipeline Attribution & Revenue Operations',
+      'Product marketing leader with 12+ years of experience translating complex enterprise technology—data, AI infrastructure, and cybersecurity—into clear positioning, launches, and pipeline. Eight years at Oracle; four PMM functions built from scratch.',
+    competencies: [
+      'Category positioning and narrative design',
+      'Multi-tier messaging architecture',
+      'Technical product marketing and launch execution',
+      'Sales enablement and competitive battlecards',
+      'Developer education and technical curricula',
+      'ICP segmentation and outbound motion design',
     ],
     experience: [
       {
-        role: 'Marketing Lead (Fractional / Advisory)',
-        company: 'Appventory',
-        period: 'Jan 2026 – Present',
-        stage: 'Seed to Series A GTM',
+        role: 'Product Marketing Manager (Marketing Lead)',
+        company: 'AppVentory',
+        period: 'Feb 2026 – present',
+        stage: 'Software & AI spend management',
         bullets: [
-          'Rebuilt marketing GTM strategy from zero, realigning feature specifications with CFO-level SaaS compliance and vendor visibility narratives.',
-          'Architected specialized accountant & auditor programmatic content hubs to capture non-branded bottom-of-funnel search intent.',
-          'Established end-to-end pipeline attribution and board-level monthly reporting cadence across inbound and outbound channels.',
-          'Recruited dedicated Demand Gen talent and executed strategic field programs, realizing +20% higher qualified event lead conversions.',
+          'Repositioned core platform messaging around CFO-level SaaS compliance and vendor visibility.',
+          'Architected high-intent organic content wedges to capture bottom-of-funnel search intent.',
+          'Established board-level attribution and monthly GTM reporting cadence.',
         ],
       },
       {
-        role: 'Principal Consultant — Independent Product Marketing Practice',
-        company: 'Core42 (G42), Zenarmor, WaferWire, Valiantys, LightBeam',
-        period: '2023 – Present',
-        stage: 'Enterprise Cloud, AI Infrastructure & Cybersecurity',
+        role: 'Principal Consultant',
+        company: 'Independent Practice',
+        period: '2023 – present',
+        stage: 'Enterprise cloud, AI infrastructure & cybersecurity',
         bullets: [
-          'Core42 (A G42 Company): Engineered sovereign cloud & high-density AI infrastructure messaging hierarchy, executive pitch decks, and competitive battlecards, contributing to 2 flagship enterprise wins.',
-          'Zenarmor: Conducted cybersecurity market intelligence and built competitive sales battlecards against legacy enterprise firewalls.',
-          'WaferWire: Distilled enterprise AI/ML and data pipeline capabilities into C-suite ROI positioning frameworks.',
-          'Valiantys: Structured vertical GTM playbooks and executive roundtables for utilities, financial services, and healthcare (+20% event lead conversion).',
-          'LightBeam.ai: Delivered sales enablement playbooks and multi-touch presentation assets for IAPP Global Privacy Summit 2024.',
+          'Core42: Developed sovereign cloud and AI infrastructure sales deck and competitive battlecards, supporting 2 enterprise wins.',
+          'Valiantys: Built vertical GTM playbooks for utilities and finance, lifting event lead conversion by +20%.',
+          'Zenarmor: Produced competitive cybersecurity intelligence against legacy enterprise firewalls.',
+          'LightBeam & Waferwire: Built executive enablement frameworks across data privacy and AI/ML pipelines.',
         ],
       },
       {
-        role: 'Product Marketing & Outbound Growth Lead',
+        role: 'Product Marketing Leader',
         company: 'Nanoheal',
-        period: 'Commercial Product Marketing & Outbound Acceleration',
-        stage: 'Autonomous Endpoint Management / DEX',
+        period: '2022 – 2023',
+        stage: 'Autonomous endpoints & DEX',
         bullets: [
-          'Evolved market positioning from reactive IT ticketing to autonomous Digital Experience Automation and self-healing endpoints.',
-          'Led cross-functional marketing pod and built an ICP-based outbound engine from scratch, generating $1.2M+ in qualified enterprise pipeline.',
-          'Structured high-velocity SDR playbooks, enterprise proof decks (Toyota Material Handling Europe), and objection handling, compressing sales cycles by 22% (9 to 7 months).',
+          'Repositioned the category from reactive IT ticketing to zero-code digital employee experience automation.',
+          'Built the first outbound engine from scratch, generating $1.2M qualified pipeline in about a year.',
+          'Structured high-velocity SDR objection playbooks, compressing the sales cycle by 22% (9 to 7 months).',
         ],
       },
       {
-        role: 'Product Marketing Lead',
+        role: 'Product Marketing Leader',
         company: 'Appsian Security',
-        period: 'ERP Data Security & IAM',
-        stage: 'PeopleSoft & SAP Cybersecurity',
+        period: '2020 – 2022',
+        stage: 'ERP cybersecurity & IAM',
         bullets: [
-          'Overhauled website information architecture, multi-tier messaging hierarchy, buyer persona roadmaps, and customer insight playbooks for ERP data security.',
-          'Drove a 2.3× lift in monthly organic web traffic, +21% increase in qualified enterprise leads, and 18+ existing-customer expansion upsells.',
+          'Overhauled website information architecture and messaging tiers without custom code overhead.',
+          'Drove 2.3× monthly unique visitors within 12 months and +21% qualified demo leads.',
+          'Equipped sales with account expansion playbooks, unlocking 18+ enterprise upsells.',
         ],
       },
       {
-        role: 'Senior Technical Product Marketing & Curriculum Lead',
-        company: 'Oracle Corporation',
-        period: '8 Years',
-        stage: 'Enterprise Database (Oracle 12c, 18c, 19c)',
+        role: 'Technical Product Marketing',
+        company: 'Oracle',
+        period: '8 years',
+        stage: 'Database & Security',
         bullets: [
-          'Translated complex database security (Oracle Database Vault Mandatory Realms), multitenant storage, and developer APIs into structured enterprise adoption paths.',
-          'Owned launch enablement and GTM execution across 25+ cross-functional engineering and PM contributors for 3 major releases (Oracle 12c, 18c, 19c).',
-          'Established and scaled the Oracle Learning Library for developer and DBA education, driving +30% growth in learning consumption.',
+          'Owned launch enablement across 25+ product managers and engineers for Oracle Database 12c and 18c.',
+          'Authored technical architecture whitepapers on Oracle Database Vault Mandatory Realms.',
+          'Built structured developer and DBA learning paths for Oracle Learning Library, lifting consumption by +30%.',
         ],
       },
     ],

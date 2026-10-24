@@ -33,66 +33,70 @@ export const Navbar: React.FC<NavbarProps> = ({
     activeView.type === 'case-study' ||
     (activeView.type === 'home' && (!activeView.section || activeView.section === 'work'));
   const isAboutActive = activeView.type === 'home' && activeView.section === 'about';
+  const isContactActive = activeView.type === 'home' && activeView.section === 'contact';
   const isResumeActive = activeView.type === 'resume';
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#0a0c10]/95 backdrop-blur-md border-b border-[#171b24]">
-      <div className="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between gap-4">
+      <div className="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 h-[64px] flex items-center justify-between gap-4">
         {/* Brand Identity */}
         <button
           type="button"
           onClick={() => handleNavClick(() => onNavigateHome())}
-          className="text-left group focus:outline-none"
+          className="text-left group focus:outline-none cursor-pointer flex items-center gap-3"
         >
-          <div className="text-[13px] font-bold tracking-[0.08em] text-white uppercase leading-none group-hover:text-[#60a5fa] transition-colors">
-            {PORTFOLIO_DATA.profile.name}
+          <div className="w-8 h-8 rounded-full overflow-hidden bg-[#16181f] border border-[#262c3a] shrink-0">
+            <img
+              src="https://raw.githubusercontent.com/shoc064/September28/main/Tanmay_website_Sept26_profilephoto.jpg"
+              alt="Tanmay Choudhury"
+              className="w-full h-full object-cover object-top"
+              loading="eager"
+            />
           </div>
-          <div className="text-[8.5px] font-mono tracking-[0.18em] text-[#64748b] uppercase mt-1 leading-none">
-            {PORTFOLIO_DATA.profile.roleKicker}
+          <div>
+            <div className="text-[14px] font-semibold tracking-[-0.01em] text-white group-hover:text-[#60a5fa] transition-colors leading-tight">
+              {PORTFOLIO_DATA.profile.name}
+            </div>
+            <div className="text-[11px] text-[#64748b] leading-tight">
+              Product marketing leader
+            </div>
           </div>
         </button>
 
         {/* Center Navigation Links (Desktop) */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
+        <nav className="hidden md:flex items-center gap-7" aria-label="Main navigation">
           <button
             type="button"
             onClick={() => onNavigateHome('work')}
-            className={`text-[11px] uppercase tracking-[0.12em] transition-colors cursor-pointer ${
-              isWorkActive
-                ? 'text-white font-semibold'
-                : 'text-[#8e98ab] hover:text-white font-medium'
+            className={`text-[13px] transition-colors cursor-pointer ${
+              isWorkActive && !isResumeActive
+                ? 'text-white font-medium'
+                : 'text-[#94a3b8] hover:text-white'
             }`}
           >
-            WORK
+            Work
           </button>
           <button
             type="button"
             onClick={() => onNavigateHome('about')}
-            className={`text-[11px] uppercase tracking-[0.12em] transition-colors cursor-pointer ${
+            className={`text-[13px] transition-colors cursor-pointer ${
               isAboutActive
-                ? 'text-white font-semibold'
-                : 'text-[#8e98ab] hover:text-white font-medium'
+                ? 'text-white font-medium'
+                : 'text-[#94a3b8] hover:text-white'
             }`}
           >
-            ABOUT
-          </button>
-          <button
-            type="button"
-            onClick={onOpenResume}
-            className={`text-[11px] uppercase tracking-[0.12em] transition-colors cursor-pointer ${
-              isResumeActive
-                ? 'text-white font-semibold'
-                : 'text-[#8e98ab] hover:text-white font-medium'
-            }`}
-          >
-            RESUME
+            About
           </button>
           <button
             type="button"
             onClick={() => onNavigateHome('contact')}
-            className="text-[11px] uppercase tracking-[0.12em] text-[#8e98ab] hover:text-white font-medium transition-colors cursor-pointer"
+            className={`text-[13px] transition-colors cursor-pointer ${
+              isContactActive
+                ? 'text-white font-medium'
+                : 'text-[#94a3b8] hover:text-white'
+            }`}
           >
-            CONTACT
+            Contact
           </button>
         </nav>
 
@@ -100,42 +104,32 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="hidden md:flex items-center gap-3">
           <button
             type="button"
-            onClick={onDownloadResume}
-            className="px-3.5 py-2 rounded bg-[#131720] hover:bg-[#1a202c] border border-[#242a38] hover:border-[#353e52] text-[10px] font-semibold tracking-[0.1em] text-[#cbd5e1] hover:text-white uppercase transition-colors cursor-pointer"
+            onClick={onOpenResume}
+            className={`px-3.5 py-1.5 rounded text-[13px] font-medium border transition-colors cursor-pointer ${
+              isResumeActive
+                ? 'bg-[#1e2536] border-[#3b82f6] text-white'
+                : 'bg-[#131720] hover:bg-[#1a202c] border-[#242a38] hover:border-[#353e52] text-[#cbd5e1] hover:text-white'
+            }`}
           >
-            DOWNLOAD RESUME
+            Résumé
           </button>
           <button
             type="button"
             onClick={onOpenContact}
-            className="px-4 py-2 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-[10px] font-semibold tracking-[0.1em] text-white uppercase transition-colors cursor-pointer"
+            className="px-3.5 py-1.5 rounded bg-[#1d63ff] hover:bg-[#1550d6] text-[13px] font-medium text-white transition-colors cursor-pointer"
           >
-            CONTACT
-          </button>
-          <button
-            type="button"
-            onClick={() => onNavigateHome('about')}
-            title="Tanmay Choudhury — Executive Profile"
-            aria-label="Executive Profile"
-            className="w-7 h-7 rounded-full overflow-hidden bg-[#16181f] border border-[#262c3a] hover:border-[#60a5fa] transition-colors shrink-0 ml-1 cursor-pointer"
-          >
-            <img
-              src="https://raw.githubusercontent.com/shoc064/September28/main/Tanmay_website_Sept26_profilephoto.jpg"
-              alt="Tanmay Choudhury"
-              className="w-full h-full object-cover object-top"
-              loading="eager"
-            />
+            Get in touch
           </button>
         </div>
 
         {/* Mobile Hamburger Button */}
-        <div className="flex items-center gap-2.5 md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
           <button
             type="button"
-            onClick={onOpenContact}
-            className="px-3 py-1.5 rounded bg-[#1d63ff] text-[10px] font-semibold tracking-[0.1em] text-white uppercase"
+            onClick={onOpenResume}
+            className="px-2.5 py-1 rounded bg-[#131720] border border-[#242a38] text-[12px] font-medium text-[#cbd5e1]"
           >
-            CONTACT
+            Résumé
           </button>
           <button
             type="button"
@@ -150,44 +144,51 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0e1118] border-b border-[#1e2433] px-4 pt-3 pb-5 space-y-3">
+        <div className="md:hidden bg-[#0e1118] border-b border-[#1e2433] px-4 pt-3 pb-5 space-y-2">
           <div className="flex flex-col space-y-1">
             <button
               type="button"
               onClick={() => handleNavClick(() => onNavigateHome('work'))}
-              className="text-left py-2.5 px-2 text-xs font-semibold uppercase tracking-[0.12em] text-white hover:bg-[#151924] rounded"
+              className="text-left py-2 px-3 text-sm text-[#cbd5e1] hover:text-white hover:bg-[#151924] rounded"
             >
-              WORK
+              Work
             </button>
             <button
               type="button"
               onClick={() => handleNavClick(() => onNavigateHome('about'))}
-              className="text-left py-2.5 px-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#94a3b8] hover:text-white hover:bg-[#151924] rounded"
+              className="text-left py-2 px-3 text-sm text-[#cbd5e1] hover:text-white hover:bg-[#151924] rounded"
             >
-              ABOUT
-            </button>
-            <button
-              type="button"
-              onClick={() => handleNavClick(onOpenResume)}
-              className="text-left py-2.5 px-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#94a3b8] hover:text-white hover:bg-[#151924] rounded"
-            >
-              RESUME
+              About
             </button>
             <button
               type="button"
               onClick={() => handleNavClick(() => onNavigateHome('contact'))}
-              className="text-left py-2.5 px-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#94a3b8] hover:text-white hover:bg-[#151924] rounded"
+              className="text-left py-2 px-3 text-sm text-[#cbd5e1] hover:text-white hover:bg-[#151924] rounded"
             >
-              CONTACT
+              Contact
+            </button>
+            <button
+              type="button"
+              onClick={() => handleNavClick(onOpenResume)}
+              className="text-left py-2 px-3 text-sm text-[#cbd5e1] hover:text-white hover:bg-[#151924] rounded"
+            >
+              Résumé
             </button>
           </div>
-          <div className="pt-2 border-t border-[#1e2433] flex flex-col gap-2">
+          <div className="pt-2 border-t border-[#1e2433] flex gap-2">
             <button
               type="button"
               onClick={() => handleNavClick(onDownloadResume)}
-              className="w-full py-2.5 rounded bg-[#141821] border border-[#252b3b] text-[11px] font-semibold tracking-[0.1em] text-[#cbd5e1] uppercase text-center"
+              className="flex-1 py-2 rounded bg-[#141821] border border-[#252b3b] text-xs font-medium text-[#cbd5e1] text-center"
             >
-              DOWNLOAD RESUME
+              Download résumé
+            </button>
+            <button
+              type="button"
+              onClick={() => handleNavClick(onOpenContact)}
+              className="flex-1 py-2 rounded bg-[#1d63ff] text-xs font-medium text-white text-center"
+            >
+              Get in touch
             </button>
           </div>
         </div>
